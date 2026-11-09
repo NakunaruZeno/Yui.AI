@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yui.AI — Cardinal Interface</title>
+  <link rel="stylesheet" href="../styles/sao-theme.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="popup-container">
+    <!-- ═══ Top Header ═══ -->
+    <header class="popup-header">
+      <div class="brand-group">
+        <div class="brand-emblem">
+          <img
+            src="../assets/icons/logo.svg"
+            alt="Yui.AI"
+            class="brand-logo-img"
+            width="24"
+            height="24"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+          />
+          <span class="brand-fallback" style="display:none">Y</span>
+        </div>
+        <div class="brand-meta">
+          <div class="brand-title-row">
+            <h1 class="brand-title">YUI<span class="brand-dot">.</span>AI</h1>
+            <span class="system-tag">CARDINAL</span>
+          </div>
+          <span class="brand-subtitle">Multi-AI Neural Link</span>
+        </div>
+      </div>
+
+      <button class="icon-btn sao-tooltip sao-tooltip-bottom" data-tooltip="Switch Theme" id="btnThemeToggle" aria-label="Switch Theme">
+        <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- ═══ AI Nodes Section ═══ -->
+    <section class="nodes-section">
+      <div class="section-header">
+        <span class="section-label">NEURAL NODES</span>
+        <span class="section-counter" id="onlineCountLabel">0 / 3 ACTIVE</span>
+      </div>
+
+      <div class="ai-grid" id="aiStatusGrid">
+        <!-- ChatGPT -->
+        <button class="ai-card" data-ai="ChatGPT" title="Open ChatGPT in Dashboard">
+          <div class="ai-card-top">
+            <div class="ai-icon-wrap chatgpt-accent">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a4.5 4.5 0 0 0-3.89 2.25L4.2 11a4.5 4.5 0 0 0 0 4.5l3.91 6.75a4.5 4.5 0 0 0 7.78 0L19.8 15.5a4.5 4.5 0 0 0 0-4.5L15.89 4.25A4.5 4.5 0 0 0 12 2Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <span class="ai-status-dot offline"></span>
+          </div>
+          <div class="ai-name">ChatGPT</div>
+          <div class="ai-state-text">STANDBY</div>
+        </button>
+
+        <!-- Claude -->
+        <button class="ai-card" data-ai="Claude" title="Open Claude in Dashboard">
+          <div class="ai-card-top">
+            <div class="ai-icon-wrap claude-accent">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/>
+              </svg>
+            </div>
+            <span class="ai-status-dot offline"></span>
+          </div>
+          <div class="ai-name">Claude</div>
+          <div class="ai-state-text">STANDBY</div>
+        </button>
+
+        <!-- Gemini -->
+        <button class="ai-card" data-ai="Gemini" title="Open Gemini in Dashboard">
+          <div class="ai-card-top">
+            <div class="ai-icon-wrap gemini-accent">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z"/>
+              </svg>
+            </div>
+            <span class="ai-status-dot offline"></span>
+          </div>
+          <div class="ai-name">Gemini</div>
+          <div class="ai-state-text">STANDBY</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ═══ Command Actions ═══ -->
+    <section class="actions-section">
+      <div class="section-header">
+        <span class="section-label">COMMANDS</span>
+      </div>
+
+      <button class="sao-menu-row primary-row" id="btnOpenDashboard">
+        <span class="row-indicator"></span>
+        <span class="row-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="18" rx="1"/>
+            <rect x="14" y="3" width="7" height="8" rx="1"/>
+            <rect x="14" y="15" width="7" height="6" rx="1"/>
+          </svg>
+        </span>
+        <span class="row-content">
+          <span class="row-title">Open Link Workspace</span>
+          <span class="row-desc">Multi-AI split-pane HUD</span>
+        </span>
+        <kbd class="row-kbd">Ctrl+Shift+Y</kbd>
+      </button>
+
+      <button class="sao-menu-row amber-row" id="btnCapture">
+        <span class="row-indicator"></span>
+        <span class="row-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 3H5a2 2 0 0 0-2 2v2m14-4h2a2 2 0 0 1 2 2v2m0 10v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </span>
+        <span class="row-content">
+          <span class="row-title">Capture &amp; All-Link</span>
+          <span class="row-desc">Region crop &amp; auto-submit</span>
+        </span>
+        <kbd class="row-kbd">Ctrl+Shift+X</kbd>
+      </button>
+    </section>
+
+    <!-- ═══ Settings Bar ═══ -->
+    <section class="settings-section">
+      <div class="setting-row">
+        <div class="setting-info">
+          <span class="setting-label">CAPTURE MODE</span>
+          <span class="setting-sub">Post-crop confirmation</span>
+        </div>
+        <div class="toggle-group" id="submitMethodToggle" role="group" aria-label="Capture Submit Mode">
+          <button class="toggle-opt active" data-value="ring-menu">Ring HUD</button>
+          <button class="toggle-opt" data-value="shortcut">Instant</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Footer ═══ -->
+    <footer class="popup-footer">
+      <div class="footer-status">
+        <span class="footer-diamond"></span>
+        <span class="footer-sys">SYS.VER // 1.1.0</span>
+      </div>
+      <span class="footer-credit">AINCRAD ARCHIVE</span>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+
+</html>

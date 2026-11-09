@@ -1,0 +1,383 @@
+/* ============================================================
+   Yui.AI — Minimalist SAO "Cardinal" Design System
+   Architectural HUD precision, translucent glass surfaces,
+   SAO Amber & Cardinal Cyan accents, WCAG AA contrast.
+   ============================================================ */
+
+/* ── Google Fonts: Rajdhani (HUD Display), Inter (UI), JetBrains Mono (Readouts) ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root {
+  /* ─ Primary Accents (Cardinal Ice Cyan & SAO Menu Amber) ─ */
+  --sao-primary: #38bdf8;
+  --sao-primary-rgb: 56, 189, 248;
+  --sao-primary-light: #7dd3fc;
+  --sao-primary-dark: #0284c7;
+
+  /* ─ SAO Command Amber (Canonical Aincrad Active Menu Highlight) ─ */
+  --sao-amber: #f59e0b;
+  --sao-amber-rgb: 245, 158, 11;
+  --sao-accent: #f59e0b;
+  --sao-accent-rgb: 245, 158, 11;
+
+  /* ─ Status Semantics (SAO HP Bar Emerald / Warning / Crimson) ─ */
+  --sao-secondary: #10b981;
+  --sao-secondary-rgb: 16, 185, 129;
+  --sao-success: #10b981;
+  --sao-warning: #f59e0b;
+  --sao-danger: #f43f5e;
+  --sao-danger-rgb: 244, 63, 94;
+
+  /* ─ Surface Hierarchy (Dark Mode Default — "Cardinal Obsidian") ─ */
+  --sao-bg-deep: #07090e;
+  --sao-bg-dark: #0b0f17;
+  --sao-bg-panel: #0f141f;
+  --sao-bg-elevated: #151c2b;
+  --sao-bg-surface: #1b2436;
+  --sao-bg-hover: #212c42;
+
+  /* ─ Translucent Glass & Overlays ─ */
+  --sao-glass: rgba(15, 20, 31, 0.78);
+  --sao-glass-subtle: rgba(255, 255, 255, 0.03);
+  --sao-glass-hover: rgba(56, 189, 248, 0.08);
+  --sao-glass-active: rgba(56, 189, 248, 0.14);
+  --sao-glass-border: rgba(255, 255, 255, 0.08);
+  --sao-overlay: rgba(7, 9, 14, 0.80);
+
+  /* ─ Typography Colors ─ */
+  --sao-text-primary: #f1f5f9;
+  --sao-text-secondary: #94a3b8;
+  --sao-text-muted: #64748b;
+  --sao-text-accent: #38bdf8;
+
+  /* ─ Hairline Borders ─ */
+  --sao-border: rgba(255, 255, 255, 0.08);
+  --sao-border-strong: rgba(56, 189, 248, 0.32);
+  --sao-border-glow: rgba(56, 189, 248, 0.55);
+  --sao-specular: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* ─ Elevation & Controlled Glow ─ */
+  --sao-glow-sm: 0 0 0 1px rgba(56, 189, 248, 0.25), 0 4px 12px rgba(0, 0, 0, 0.35);
+  --sao-glow-md: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --sao-glow-amber: 0 0 0 1px rgba(245, 158, 11, 0.4), 0 6px 20px rgba(245, 158, 11, 0.15);
+  --sao-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --sao-shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --sao-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.60);
+
+  /* ─ Font Stacks ─ */
+  --font-display: 'Rajdhani', 'Inter', -apple-system, sans-serif;
+  --font-heading: 'Rajdhani', 'Inter', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  /* ─ 4/8px Spacing Scale ─ */
+  --space-2xs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+
+  /* ─ Architectural Radius ─ */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* ─ Precision Motion ─ */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 140ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Light Mode Override ("Aincrad Ivory Glass") ── */
+[data-theme="light"] {
+  --sao-primary: #0284c7;
+  --sao-primary-rgb: 2, 132, 199;
+  --sao-primary-light: #0369a1;
+  --sao-primary-dark: #075985;
+
+  --sao-amber: #d97706;
+  --sao-amber-rgb: 217, 119, 6;
+  --sao-accent: #d97706;
+  --sao-accent-rgb: 217, 119, 6;
+
+  --sao-secondary: #059669;
+  --sao-secondary-rgb: 5, 150, 105;
+  --sao-success: #059669;
+  --sao-warning: #d97706;
+  --sao-danger: #e11d48;
+  --sao-danger-rgb: 225, 29, 72;
+
+  --sao-bg-deep: #eef2f6;
+  --sao-bg-dark: #f8fafc;
+  --sao-bg-panel: #ffffff;
+  --sao-bg-elevated: #ffffff;
+  --sao-bg-surface: #f1f5f9;
+  --sao-bg-hover: #e2e8f0;
+
+  --sao-glass: rgba(255, 255, 255, 0.88);
+  --sao-glass-subtle: rgba(15, 23, 42, 0.025);
+  --sao-glass-hover: rgba(2, 132, 199, 0.07);
+  --sao-glass-active: rgba(2, 132, 199, 0.12);
+  --sao-glass-border: rgba(15, 23, 42, 0.10);
+  --sao-overlay: rgba(15, 23, 42, 0.45);
+
+  --sao-text-primary: #0f172a;
+  --sao-text-secondary: #475569;
+  --sao-text-muted: #64748b;
+  --sao-text-accent: #0284c7;
+
+  --sao-border: rgba(15, 23, 42, 0.09);
+  --sao-border-strong: rgba(2, 132, 199, 0.35);
+  --sao-border-glow: rgba(2, 132, 199, 0.50);
+  --sao-specular: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  --sao-glow-sm: 0 0 0 1px rgba(2, 132, 199, 0.2), 0 2px 8px rgba(15, 23, 42, 0.06);
+  --sao-glow-md: 0 0 0 1px rgba(2, 132, 199, 0.3), 0 8px 24px rgba(15, 23, 42, 0.10);
+  --sao-glow-amber: 0 0 0 1px rgba(217, 119, 6, 0.35), 0 4px 14px rgba(217, 119, 6, 0.12);
+  --sao-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --sao-shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --sao-shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.14);
+}
+
+/* ═══════════════════════════════════════════
+   Base Reset & Accessibility
+   ═══════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--sao-text-primary);
+  background: var(--sao-bg-deep);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Accessible Keyboard Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--sao-primary);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════
+   Component: SAO Architectural Panel
+   ═══════════════════════════════════════════ */
+.sao-panel {
+  background: var(--sao-glass);
+  border: 1px solid var(--sao-glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--sao-specular), var(--sao-shadow-md);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+/* ═══════════════════════════════════════════
+   Component: SAO Buttons
+   ═══════════════════════════════════════════ */
+.sao-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sao-text-primary);
+  background: var(--sao-bg-elevated);
+  border: 1px solid var(--sao-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.sao-btn:hover {
+  background: var(--sao-glass-hover);
+  border-color: var(--sao-border-strong);
+  color: var(--sao-primary);
+}
+
+.sao-btn:active {
+  background: var(--sao-glass-active);
+}
+
+.sao-btn-primary {
+  background: rgba(var(--sao-primary-rgb), 0.12);
+  border-color: rgba(var(--sao-primary-rgb), 0.35);
+  color: var(--sao-primary);
+}
+
+.sao-btn-primary:hover {
+  background: rgba(var(--sao-primary-rgb), 0.20);
+  border-color: var(--sao-primary);
+  box-shadow: var(--sao-glow-sm);
+}
+
+.sao-btn-amber {
+  background: rgba(var(--sao-amber-rgb), 0.14);
+  border-color: rgba(var(--sao-amber-rgb), 0.40);
+  color: var(--sao-amber);
+}
+
+.sao-btn-amber:hover {
+  background: rgba(var(--sao-amber-rgb), 0.22);
+  border-color: var(--sao-amber);
+  color: var(--sao-amber);
+  box-shadow: var(--sao-glow-amber);
+}
+
+.sao-btn-danger {
+  background: rgba(var(--sao-danger-rgb), 0.10);
+  border-color: rgba(var(--sao-danger-rgb), 0.30);
+  color: var(--sao-danger);
+}
+
+.sao-btn-danger:hover {
+  background: rgba(var(--sao-danger-rgb), 0.18);
+  border-color: var(--sao-danger);
+  color: var(--sao-danger);
+}
+
+/* ═══════════════════════════════════════════
+   Component: SAO Input
+   ═══════════════════════════════════════════ */
+.sao-input {
+  padding: 7px 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--sao-text-primary);
+  background: var(--sao-bg-panel);
+  border: 1px solid var(--sao-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.sao-input::placeholder {
+  color: var(--sao-text-muted);
+}
+
+.sao-input:focus {
+  border-color: var(--sao-primary);
+  box-shadow: 0 0 0 2px rgba(var(--sao-primary-rgb), 0.15);
+}
+
+/* ═══════════════════════════════════════════
+   Component: SAO Tooltip
+   ═══════════════════════════════════════════ */
+.sao-tooltip {
+  position: relative;
+}
+
+.sao-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(2px);
+  padding: 3px 8px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--sao-text-primary);
+  background: var(--sao-bg-elevated);
+  border: 1px solid var(--sao-border-strong);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--sao-shadow-md);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1000;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.sao-tooltip:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tooltip aligned downward for top-bar buttons */
+.sao-tooltip-bottom::after {
+  bottom: auto;
+  top: calc(100% + 6px);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.sao-tooltip-bottom:hover::after {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   Keyframes & Motion
+   ═══════════════════════════════════════════ */
+@keyframes sao-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sao-scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes sao-ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.sao-animate-fade-in { animation: sao-fade-in 0.22s var(--ease-out-expo) forwards; }
+.sao-animate-scale-in { animation: sao-scale-in 0.2s var(--ease-out-expo) forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Minimalist Scrollbar
+   ═══════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--sao-primary-rgb), 0.22);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--sao-primary-rgb), 0.45);
+}

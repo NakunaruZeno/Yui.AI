@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <defs>
+    <linearGradient id="crystalBody" x1="28" y1="16" x2="228" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#131B2E" />
+      <stop offset="55%" stop-color="#0B0F19" />
+      <stop offset="100%" stop-color="#070A10" />
+    </linearGradient>
+    <linearGradient id="facetRight" x1="128" y1="16" x2="228" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0.02" />
+    </linearGradient>
+    <linearGradient id="cyanBorder" x1="28" y1="16" x2="228" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7DD3FC" />
+      <stop offset="50%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="yBlade" x1="68" y1="64" x2="188" y2="204" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="45%" stop-color="#7DD3FC" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+    <linearGradient id="amberCore" x1="128" y1="50" x2="128" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FDE68A" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Faceted SAO Crystal Silhouette (Transparent Exterior) -->
+  <polygon
+    points="128,14 226,68 226,188 128,242 30,188 30,68"
+    fill="url(#crystalBody)"
+    stroke="url(#cyanBorder)"
+    stroke-width="7"
+    stroke-linejoin="round"
+  />
+
+  <!-- Subtle Right-Half Crystal Facet Reflection -->
+  <polygon
+    points="128,14 226,68 226,188 128,242"
+    fill="url(#facetRight)"
+  />
+
+  <!-- Inner Precision HUD Hexagonal Ring -->
+  <polygon
+    points="128,32 210,77 210,179 128,224 46,179 46,77"
+    stroke="#38BDF8"
+    stroke-opacity="0.28"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+
+  <!-- Geometric Corner Tick Accents (Aincrad HUD markers) -->
+  <line x1="128" y1="14" x2="128" y2="32" stroke="#38BDF8" stroke-opacity="0.45" stroke-width="2.5" />
+  <line x1="226" y1="68" x2="210" y2="77" stroke="#38BDF8" stroke-opacity="0.45" stroke-width="2.5" />
+  <line x1="226" y1="188" x2="210" y2="179" stroke="#38BDF8" stroke-opacity="0.45" stroke-width="2.5" />
+  <line x1="30" y1="68" x2="46" y2="77" stroke="#38BDF8" stroke-opacity="0.45" stroke-width="2.5" />
+  <line x1="30" y1="188" x2="46" y2="179" stroke="#38BDF8" stroke-opacity="0.45" stroke-width="2.5" />
+
+  <!-- Architectural "Y" Neural Nexus (3 Converging AI Blades) -->
+  <!-- Left Wing Blade -->
+  <polygon
+    points="64,76 92,76 128,126 128,150 112,142"
+    fill="url(#yBlade)"
+  />
+  <!-- Right Wing Blade -->
+  <polygon
+    points="192,76 164,76 128,126 128,150 144,142"
+    fill="#38BDF8"
+  />
+  <!-- Central Vertical Sword Pillar -->
+  <polygon
+    points="114,136 128,126 142,136 142,192 128,208 114,192"
+    fill="url(#yBlade)"
+  />
+  <!-- Central Spine Highlight Line -->
+  <line x1="128" y1="126" x2="128" y2="206" stroke="#0B0F19" stroke-opacity="0.45" stroke-width="2" />
+
+  <!-- SAO Amber Crown Diamond (Yui's Navigation Crystal) -->
+  <polygon
+    points="128,48 144,70 128,92 112,70"
+    fill="url(#amberCore)"
+  />
+  <polygon
+    points="128,48 144,70 128,92"
+    fill="#FFFBEB"
+    fill-opacity="0.22"
+  />
+</svg>

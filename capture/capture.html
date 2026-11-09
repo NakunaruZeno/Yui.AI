@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yui.AI — Target Acquisition</title>
+  <link rel="stylesheet" href="../styles/sao-theme.css">
+  <link rel="stylesheet" href="capture.css">
+</head>
+
+<body>
+  <div class="capture-container" id="captureContainer">
+    <!-- High-DPI Screenshot Canvas -->
+    <canvas id="screenshotCanvas"></canvas>
+
+    <!-- Initial Dim Scrim (hidden once selection spotlight is active) -->
+    <div class="crop-overlay" id="cropOverlay"></div>
+
+    <!-- Spotlight Crop Selection Box -->
+    <div class="crop-selection" id="cropSelection" style="display:none;">
+      <div class="crop-corner top-left"></div>
+      <div class="crop-corner top-right"></div>
+      <div class="crop-corner bottom-left"></div>
+      <div class="crop-corner bottom-right"></div>
+      <div class="crop-size-badge" id="cropSizeLabel">0 × 0</div>
+    </div>
+
+    <!-- Minimalist SAO HUD Overlay -->
+    <div class="capture-hud" id="captureHud">
+      <div class="hud-top">
+        <div class="hud-pill">
+          <span class="hud-diamond"></span>
+          <span class="hud-pill-title">YUI.AI // TARGET ACQUISITION</span>
+        </div>
+      </div>
+
+      <div class="hud-center" id="hudInstructions">
+        <div class="hud-card sao-animate-fade-in">
+          <svg class="hud-crosshair-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7 3H5a2 2 0 0 0-2 2v2m14-4h2a2 2 0 0 1 2 2v2m0 10v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+          </svg>
+          <span class="hud-key">DRAG TO LOCK REGION</span>
+          <span class="hud-desc">Select target area to broadcast across AI nodes</span>
+        </div>
+      </div>
+
+      <div class="hud-bottom">
+        <div class="hud-shortcuts">
+          <span><kbd>Space</kbd> Full Screen</span>
+          <span class="hud-sep">•</span>
+          <span><kbd>Enter</kbd> All-Link Send</span>
+          <span class="hud-sep">•</span>
+          <span><kbd>ESC</kbd> Cancel</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post-Crop Floating Command Panel -->
+    <div class="capture-command-panel sao-panel" id="captureActions" style="display:none;">
+      <!-- Prompt Input Row -->
+      <div class="capture-prompt-row">
+        <input
+          type="text"
+          id="capturePromptInput"
+          class="sao-input capture-prompt-input"
+          placeholder="Add instruction (optional) — e.g. Explain, solve, or debug..."
+          autocomplete="off"
+        />
+        <div class="capture-preset-chips" id="capturePresets">
+          <button type="button" class="preset-chip" data-prompt="Explain this clearly and concisely.">Explain</button>
+          <button type="button" class="preset-chip" data-prompt="Solve this step-by-step and give the final answer.">Solve</button>
+          <button type="button" class="preset-chip" data-prompt="Find the issue/bug here and provide the corrected code.">Debug</button>
+          <button type="button" class="preset-chip" data-prompt="Translate and summarize the content in Vietnamese.">Translate</button>
+        </div>
+      </div>
+
+      <!-- Action Toolbar Row -->
+      <div class="capture-toolbar-row">
+        <div class="capture-target-group">
+          <button type="button" class="cap-btn cap-btn-all" id="btnSendAll" title="Broadcast to all active AIs (Enter)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            <span>All-Link Start</span>
+            <kbd>↵</kbd>
+          </button>
+
+          <div class="cap-divider"></div>
+
+          <button type="button" class="cap-btn cap-btn-node" data-target="ChatGPT" title="Send only to ChatGPT">
+            <span>ChatGPT</span>
+          </button>
+          <button type="button" class="cap-btn cap-btn-node" data-target="Claude" title="Send only to Claude">
+            <span>Claude</span>
+          </button>
+          <button type="button" class="cap-btn cap-btn-node" data-target="Gemini" title="Send only to Gemini">
+            <span>Gemini</span>
+          </button>
+        </div>
+
+        <div class="capture-utility-group">
+          <button type="button" class="cap-btn cap-btn-icon" id="btnStageOnly" title="Stage in Dashboard Command Bar without auto-sending">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M12 8v8M8 12h8"/>
+            </svg>
+          </button>
+          <button type="button" class="cap-btn cap-btn-icon" id="btnCopyImage" title="Copy cropped image to clipboard">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+          <button type="button" class="cap-btn cap-btn-icon" id="btnRecrop" title="Reselect region">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+          </button>
+          <button type="button" class="cap-btn cap-btn-icon cap-btn-danger" id="btnCancel" title="Cancel capture (ESC)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="capture.js"></script>
+</body>
+
+</html>
