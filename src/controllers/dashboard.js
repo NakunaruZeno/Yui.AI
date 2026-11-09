@@ -513,8 +513,8 @@ function createPanelElement(panel) {
         class="panel-iframe"
         id="iframe-${panel.id}"
         src="${getPanelUrl(panel.name)}"
-        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-downloads"
-        allow="clipboard-read; clipboard-write"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-forms allow-modals allow-downloads allow-top-navigation-by-user-activation allow-storage-access-by-user-activation"
+        allow="clipboard-read; clipboard-write; microphone"
       ></iframe>
     </div>
   `;

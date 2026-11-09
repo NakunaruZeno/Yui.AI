@@ -111,8 +111,13 @@ function initCropEvents() {
 
   container.addEventListener('mousedown', (e) => {
     if (e.button !== 0) return;
-    if (hasCropped) return;
     if (e.target.closest('.capture-command-panel')) return;
+
+    // Allow immediate re-dragging on the canvas without clicking Recrop first
+    if (hasCropped) {
+      hasCropped = false;
+      captureActions.style.display = 'none';
+    }
 
     isCropping = true;
     cropStart.x = e.clientX;
@@ -249,6 +254,16 @@ function getFullScreenDataUrl() {
 // Post-Crop Command Panel & Actions
 // ═══════════════════════════════════════════
 function showCommandPanel() {
+  const bottomEdge = Math.max(cropStart.y, cropEnd.y);
+  // Flip command panel to top of viewport if selection is near the bottom
+  if (bottomEdge > window.innerHeight - 135) {
+    captureActions.style.bottom = 'auto';
+    captureActions.style.top = '24px';
+  } else {
+    captureActions.style.top = 'auto';
+    captureActions.style.bottom = '28px';
+  }
+
   captureActions.style.display = 'flex';
   setTimeout(() => {
     if (promptInput) promptInput.focus();

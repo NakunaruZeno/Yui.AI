@@ -27,10 +27,12 @@ const AI_PROVIDERS = {
 };
 
 const AI_HOSTNAMES = Object.values(AI_PROVIDERS).map(p => p.hostname);
-const DASHBOARD_URL = chrome.runtime.getURL('dashboard/dashboard.html');
+const DASHBOARD_URL = chrome.runtime.getURL('ui/views/dashboard.html');
+const CAPTURE_URL = chrome.runtime.getURL('ui/views/capture.html');
 
 // ── Ephemeral State (with MV3 Service Worker recovery) ──
 let dashboardTabId = null;
+let captureTabId = null;
 let capturedImageDataUrl = null;
 let dashboardReadyResolve = null;
 
@@ -233,7 +235,7 @@ async function openDashboard(targetAI = null) {
   return tab;
 }
 
-// ── Track Dashboard Tab Closure ──
+// ── Track Dashboard & Capture Tab Closure ──
 chrome.tabs.onRemoved.addListener((tabId) => {
   if (tabId === dashboardTabId) {
     dashboardTabId = null;
@@ -241,6 +243,10 @@ chrome.tabs.onRemoved.addListener((tabId) => {
       dashboardReadyResolve();
       dashboardReadyResolve = null;
     }
+  }
+  if (tabId === captureTabId) {
+    captureTabId = null;
+    clearCapturedImage();
   }
 });
 
@@ -259,12 +265,22 @@ async function startCapture() {
 
     await setCapturedImage(dataUrl);
 
-    await chrome.tabs.create({
-      url: chrome.runtime.getURL('capture/capture.html'),
+    const createProps = {
+      url: CAPTURE_URL,
       active: true
-    });
+    };
+    if (activeTab.id !== undefined) {
+      createProps.openerTabId = activeTab.id;
+    }
+    if (typeof activeTab.index === 'number') {
+      createProps.index = activeTab.index + 1;
+    }
+
+    const capTab = await chrome.tabs.create(createProps);
+    captureTabId = capTab.id;
   } catch (err) {
     console.error('[Yui.AI] Capture failed:', err);
+    throw err;
   }
 }
 

@@ -59,21 +59,21 @@
 ```mermaid
 flowchart LR
   subgraph User["User Triggers"]
-    Popup["Popup HUD"]
+    Popup["Popup View (ui/views/popup.html)"]
     Shortcut["Shortcuts (Ctrl+Shift+X / Y)"]
   end
 
-  subgraph Core["Extension Pages"]
-    Capture["Capture & High-DPI Crop\n(capture.js)"]
-    Dashboard["Cardinal Workspace & Omni-Bar\n(dashboard.js)"]
+  subgraph Core["UI Views & Controllers"]
+    Capture["Capture & High-DPI Crop\n(src/controllers/capture.js)"]
+    Dashboard["Cardinal Workspace & Omni-Bar\n(src/controllers/dashboard.js)"]
   end
 
-  subgraph SW["Background Service Worker (background.js)"]
+  subgraph SW["Background Service Worker (src/background/service-worker.js)"]
     Router["Async Message Router &\nSession Storage Buffer"]
-    DNR["declarativeNetRequest\n(Sub-frame Header Bypass)"]
+    DNR["declarativeNetRequest\n(src/config/rules.json)"]
   end
 
-  subgraph Content["AI Frame Content Scripts"]
+  subgraph Content["AI Frame Content Scripts (src/content/)"]
     Inject["DOM Injection Adapters\n(content-inject.js)"]
     Tracker["MAIN-World SPA URL Bridge\n(content-main-world.js)"]
   end
@@ -93,30 +93,35 @@ flowchart LR
 
 ```text
 Yui.AI/
-├── manifest.json                 # Chrome Extension Manifest V3 configuration
-├── rules.json                    # declarativeNetRequest rules (sub_frame XFO/CSP strip)
-├── background.js                 # Service worker: tab discovery, capture buffer, multicast
+├── manifest.json                 # Chrome Extension Manifest V3 entry point
+├── README.md
+├── LICENSE
 ├── assets/
 │   └── icons/
 │       ├── logo.svg              # Vector SAO Cardinal Crystal emblem (transparent)
 │       └── icon{16,32,48,128}.png
-├── styles/
-│   └── sao-theme.css             # Minimalist SAO Cardinal design tokens (Dark & Light)
-├── popup/
-│   ├── popup.html                # Compact neural node status & command launcher
-│   ├── popup.css
-│   └── popup.js
-├── capture/
-│   ├── capture.html              # Fullscreen spotlight cropper & floating command bar
-│   ├── capture.css
-│   └── capture.js
-├── dashboard/
-│   ├── dashboard.html            # Split-pane workspace, node tabs, Omni-Command Bar
-│   ├── dashboard.css
-│   └── dashboard.js
-└── content/
-    ├── content-inject.js         # ES6 adapters for ChatGPT, Claude, and Gemini
-    └── content-main-world.js     # MAIN-world Navigation/History API URL tracker
+├── src/                          # Core Logic, Controllers & Network Rules
+│   ├── background/
+│   │   └── service-worker.js     # Service worker: tab discovery, capture buffer, multicast
+│   ├── config/
+│   │   └── rules.json            # declarativeNetRequest rules (sub_frame XFO/CSP strip)
+│   ├── content/
+│   │   ├── content-inject.js     # ES6 DOM injection adapters for ChatGPT, Claude, Gemini
+│   │   └── content-main-world.js # MAIN-world Navigation/History API URL tracker
+│   └── controllers/
+│       ├── popup.js              # Popup status & launcher logic
+│       ├── capture.js            # High-DPI lossless spotlight cropper logic
+│       └── dashboard.js          # Split-pane workspace & Omni-Command Bar logic
+└── ui/                           # Presentation Layer (HTML Views & CSS Design System)
+    ├── styles/
+    │   ├── sao-theme.css         # Minimalist SAO Cardinal design tokens (Dark & Light)
+    │   ├── popup.css             # Compact popup HUD stylesheet
+    │   ├── capture.css           # Target acquisition & spotlight cropper stylesheet
+    │   └── dashboard.css         # Split-pane workspace & Omni-Command Bar stylesheet
+    └── views/
+        ├── popup.html            # Extension toolbar popup view
+        ├── capture.html          # Fullscreen spotlight capture view
+        └── dashboard.html        # Cardinal Multi-AI workspace view
 ```
 
 ---
